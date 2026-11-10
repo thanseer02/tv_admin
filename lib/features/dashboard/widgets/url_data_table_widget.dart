@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../models/url_item_model.dart';
+import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/url_badge_widget.dart';
 

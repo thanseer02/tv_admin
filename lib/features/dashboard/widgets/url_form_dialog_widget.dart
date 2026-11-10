@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../models/url_item_model.dart';
+import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 
 class UrlFormDialogWidget extends StatefulWidget {

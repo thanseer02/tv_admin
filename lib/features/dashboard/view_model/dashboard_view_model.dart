@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../models/url_item_model.dart';
+import '../model/url_item_model.dart';
 import '../../../providers/view_model.dart';
 import '../../../services/web_api_services.dart';
 import '../../../utils/extensions.dart';
