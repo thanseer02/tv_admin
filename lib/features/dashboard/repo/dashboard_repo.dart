@@ -27,7 +27,9 @@ extension DashboardRepoExtension on WebAPIService {
     );
 
     final List data = response.data as List;
-    return data.map((json) => UrlItemModel.fromJson(json as Map<String, dynamic>)).toList();
+    return data
+        .map((json) => UrlItemModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   Future<UrlItemModel> addUrlApi({
