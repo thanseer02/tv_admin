@@ -16,6 +16,27 @@ class AuthService {
   bool get isAuthenticated => _authToken != null && _currentUser != null;
   bool get rememberMe => _rememberMe;
 
+  Future<bool> initSessionFromStorage() async {
+    final token = await SpHelper.getString(keyToken);
+    final email = await SpHelper.getString(keyEmail);
+    final name = await SpHelper.getString(keyUserName);
+    final role = await SpHelper.getString(keyRole);
+
+    if (token != null && token.isNotEmpty && email != null) {
+      _authToken = token;
+      _currentUser = UserModel(
+        id: 'usr_saved',
+        email: email,
+        name: name ?? 'Admin',
+        role: role ?? 'Administrator',
+        token: token,
+      );
+      _rememberMe = true;
+      return true;
+    }
+    return false;
+  }
+
   Future<void> setSession({
     required UserModel user,
     required String token,

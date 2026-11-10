@@ -37,7 +37,8 @@ class _LoginContent extends StatelessWidget {
             constraints: BoxConstraints(maxWidth: 440.spMin),
             child: Card(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 36.spMin, vertical: 40.spMin),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 36.spMin, vertical: 40.spMin),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,9 +49,11 @@ class _LoginContent extends StatelessWidget {
                       formKey: formKey,
                       onLoginSubmit: () async {
                         if (!formKey.currentState!.validate()) return;
-                        final success = await context.read<LoginViewModel>().login();
+                        final success =
+                            await context.read<LoginViewModel>().login();
                         if (success && context.mounted) {
-                          Navigator.of(context).pushReplacementNamed(DashboardScreen.routeName);
+                          Navigator.of(context)
+                              .pushReplacementNamed(DashboardScreen.routeName);
                         }
                       },
                     ),
@@ -58,13 +61,15 @@ class _LoginContent extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(10.spMin),
                       decoration: BoxDecoration(
-                        color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.04),
+                        color: (isDark ? Colors.white : Colors.black)
+                            .withValues(alpha: 0.04),
                         borderRadius: BorderRadius.circular(8.spMin),
                       ),
                       child: Text(
                         '💡 Demo Credentials pre-filled. MVVM Architecture ready for API.',
                         textAlign: TextAlign.center,
-                        style: tsS11W600.copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
+                        style: tsS11W600.copyWith(
+                            color: Colors.grey, fontWeight: FontWeight.normal),
                       ),
                     ),
                   ],
