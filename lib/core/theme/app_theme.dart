@@ -39,7 +39,7 @@ class AppTheme {
         onPrimary: Colors.white,
         onSurface: Color(0xFF1E293B),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: lightCard,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -92,7 +92,7 @@ class AppTheme {
         onPrimary: Colors.white,
         onSurface: Color(0xFFF8FAFC),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: darkCard,
         elevation: 0,
         shape: RoundedRectangleBorder(

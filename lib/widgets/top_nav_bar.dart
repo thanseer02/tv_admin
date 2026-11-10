@@ -21,7 +21,7 @@ class TopNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color,
+        color: Theme.of(context).cardColor,
         border: Border(
           bottom: BorderSide(
             color: Theme.of(context).dividerColor.withOpacity(0.12),
