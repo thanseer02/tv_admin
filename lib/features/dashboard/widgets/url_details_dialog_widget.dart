@@ -7,13 +7,25 @@ import '../../../widgets/url_badge_widget.dart';
 
 class UrlDetailsDialogWidget extends StatelessWidget {
   final UrlItemModel item;
+  final VoidCallback? onDelete;
 
-  const UrlDetailsDialogWidget({super.key, required this.item});
+  const UrlDetailsDialogWidget({
+    super.key,
+    required this.item,
+    this.onDelete,
+  });
 
-  static Future<void> show(BuildContext context, UrlItemModel item) {
+  static Future<void> show(
+    BuildContext context,
+    UrlItemModel item, {
+    VoidCallback? onDelete,
+  }) {
     return showDialog(
       context: context,
-      builder: (context) => UrlDetailsDialogWidget(item: item),
+      builder: (context) => UrlDetailsDialogWidget(
+        item: item,
+        onDelete: onDelete,
+      ),
     );
   }
 
@@ -122,6 +134,16 @@ class UrlDetailsDialogWidget extends StatelessWidget {
         ),
       ),
       actions: [
+        if (onDelete != null)
+          TextButton.icon(
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            onPressed: () {
+              Navigator.of(context).pop();
+              onDelete!();
+            },
+            icon: Icon(Icons.delete_outline_rounded, size: 18.spMin),
+            label: Text('Delete URL', style: tsS14W600),
+          ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text('Close', style: tsS14W600),

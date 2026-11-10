@@ -27,7 +27,17 @@ class DashboardTableSectionWidget extends StatelessWidget {
     if (isDesktop) {
       return UrlDataTableWidget(
         items: items,
-        onDetails: (item) => UrlDetailsDialogWidget.show(context, item),
+        onDetails: (item) => UrlDetailsDialogWidget.show(
+          context,
+          item,
+          onDelete: () {
+            DeleteConfirmationDialogWidget.show(
+              context: context,
+              title: item.name,
+              onConfirm: () async => onDelete(item.id),
+            );
+          },
+        ),
         onEdit: (item) {
           UrlFormDialogWidget.show(
             context: context,
@@ -57,7 +67,17 @@ class DashboardTableSectionWidget extends StatelessWidget {
     } else {
       return UrlMobileListWidget(
         items: items,
-        onDetails: (item) => UrlDetailsDialogWidget.show(context, item),
+        onDetails: (item) => UrlDetailsDialogWidget.show(
+          context,
+          item,
+          onDelete: () {
+            DeleteConfirmationDialogWidget.show(
+              context: context,
+              title: item.name,
+              onConfirm: () async => onDelete(item.id),
+            );
+          },
+        ),
         onEdit: (item) {
           UrlFormDialogWidget.show(
             context: context,
