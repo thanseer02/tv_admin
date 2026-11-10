@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/styles.dart';
 
 class ForgotPasswordDialogWidget extends StatefulWidget {
@@ -57,10 +58,10 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
       title: Text('Reset Your Password', style: tsS18W600),
       content: SizedBox(
-        width: 420,
+        width: 420.spMin,
         child: Form(
           key: _formKey,
           child: Column(
@@ -71,14 +72,14 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
                 'Enter the email address associated with your LinkDesk admin account and we will send you a reset link.',
                 style: tsS13W600.copyWith(fontWeight: FontWeight.normal, color: Colors.grey, height: 1.4),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.spMin),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 style: tsS14W400,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Email Address',
-                  prefixIcon: Icon(Icons.email_outlined, size: 20),
+                  prefixIcon: Icon(Icons.email_outlined, size: 20.spMin),
                 ),
                 validator: (val) {
                   if (val == null || val.trim().isEmpty) return 'Please enter your email';
@@ -98,10 +99,10 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
         ElevatedButton(
           onPressed: _isLoading ? null : _handleSend,
           child: _isLoading
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+              ? SizedBox(
+                  width: 16.spMin,
+                  height: 16.spMin,
+                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                 )
               : Text('Send Reset Link', style: tsS14W600.copyWith(color: Colors.white)),
         ),
@@ -109,4 +110,3 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
     );
   }
 }
-

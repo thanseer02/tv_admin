@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/styles.dart';
 
 class EmptyStateWidget extends StatelessWidget {
@@ -19,38 +20,38 @@ class EmptyStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: EdgeInsets.all(40.spMin),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20.spMin),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.link_off_rounded,
-                size: 48,
+                size: 48.spMin,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 18),
+            SizedBox(height: 18.spMin),
             Text(title, style: tsS18W600),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.spMin),
             ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 380),
+              constraints: BoxConstraints(maxWidth: 380.spMin),
               child: Text(
                 description,
                 textAlign: TextAlign.center,
-                style: tsS13W600.copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
+                style: tsS14W400.copyWith(color: Colors.grey),
               ),
             ),
             if (actionLabel != null && onAction != null) ...[
-              const SizedBox(height: 20),
+              SizedBox(height: 20.spMin),
               ElevatedButton.icon(
                 onPressed: onAction,
-                icon: const Icon(Icons.add, size: 18),
+                icon: Icon(Icons.add, size: 18.spMin),
                 label: Text(actionLabel!),
               ),
             ],
@@ -75,23 +76,23 @@ class ErrorStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: EdgeInsets.all(40.spMin),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline_rounded, size: 48, color: Colors.redAccent),
-            const SizedBox(height: 16),
+            Icon(Icons.error_outline_rounded, size: 48.spMin, color: Colors.redAccent),
+            SizedBox(height: 16.spMin),
             Text('Unable to load resources', style: tsS18W600),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.spMin),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: tsS13W600.copyWith(color: Colors.grey, fontWeight: FontWeight.normal),
+              style: tsS14W400.copyWith(color: Colors.grey),
             ),
-            const SizedBox(height: 18),
+            SizedBox(height: 18.spMin),
             OutlinedButton.icon(
               onPressed: onRetry,
-              icon: const Icon(Icons.refresh, size: 16),
+              icon: Icon(Icons.refresh, size: 16.spMin),
               label: const Text('Try Again'),
             ),
           ],

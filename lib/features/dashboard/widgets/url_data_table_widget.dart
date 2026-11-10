@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/url_badge_widget.dart';
@@ -25,13 +26,13 @@ class UrlDataTableWidget extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width - 96),
+        constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width - 96.spMin),
         child: DataTable(
-          headingRowHeight: 48,
-          dataRowMinHeight: 64,
-          dataRowMaxHeight: 72,
-          horizontalMargin: 20,
-          columnSpacing: 24,
+          headingRowHeight: 48.spMin,
+          dataRowMinHeight: 64.spMin,
+          dataRowMaxHeight: 72.spMin,
+          horizontalMargin: 20.spMin,
+          columnSpacing: 24.spMin,
           columns: [
             DataColumn(label: Text('NAME & ENVIRONMENT', style: tsS11W600)),
             DataColumn(label: Text('URL ADDRESS', style: tsS11W600)),
@@ -50,7 +51,7 @@ class UrlDataTableWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(item.name, style: tsS13W600),
-                        const SizedBox(height: 4),
+                        SizedBox(height: 4.spMin),
                         EnvironmentBadgeWidget(environment: item.environment),
                       ],
                     ),
@@ -61,19 +62,18 @@ class UrlDataTableWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 280),
+                        constraints: BoxConstraints(maxWidth: 280.spMin),
                         child: Text(
                           item.address,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: tsS12W400.copyWith(
                             fontFamily: 'monospace',
-                            fontSize: 12,
-                            color: Color(0xFF60A5FA),
+                            color: const Color(0xFF60A5FA),
                           ),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.copy_rounded, size: 15),
+                        icon: Icon(Icons.copy_rounded, size: 15.spMin),
                         tooltip: 'Copy URL',
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: item.address));
@@ -92,7 +92,7 @@ class UrlDataTableWidget extends StatelessWidget {
                 DataCell(
                   InkWell(
                     onTap: () => onToggleStatus(item),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.spMin),
                     child: Tooltip(
                       message: 'Click to toggle Active/Inactive',
                       child: StatusBadgeWidget(status: item.status),
@@ -110,17 +110,17 @@ class UrlDataTableWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.visibility_outlined, size: 18),
+                        icon: Icon(Icons.visibility_outlined, size: 18.spMin),
                         tooltip: 'View Details',
                         onPressed: () => onDetails(item),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.edit_outlined, size: 18, color: Color(0xFF60A5FA)),
+                        icon: Icon(Icons.edit_outlined, size: 18.spMin, color: const Color(0xFF60A5FA)),
                         tooltip: 'Edit URL',
                         onPressed: () => onEdit(item),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.delete_outline_rounded, size: 18, color: Colors.redAccent),
+                        icon: Icon(Icons.delete_outline_rounded, size: 18.spMin, color: Colors.redAccent),
                         tooltip: 'Delete URL',
                         onPressed: () => onDelete(item),
                       ),
@@ -135,4 +135,3 @@ class UrlDataTableWidget extends StatelessWidget {
     );
   }
 }
-

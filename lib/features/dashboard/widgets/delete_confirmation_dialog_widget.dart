@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/styles.dart';
 
 class DeleteConfirmationDialogWidget extends StatefulWidget {
@@ -52,16 +53,16 @@ class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialo
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
       title: Row(
         children: [
-          const Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 24),
-          const SizedBox(width: 8),
+          Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 24.spMin),
+          SizedBox(width: 8.spMin),
           Text('Delete URL?', style: tsS18W600),
         ],
       ),
       content: SizedBox(
-        width: 420,
+        width: 420.spMin,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,13 +71,13 @@ class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialo
               'Are you sure you want to permanently delete this URL? Any connected screens will lose the active feed.',
               style: tsS13W600.copyWith(fontWeight: FontWeight.normal, height: 1.4),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.spMin),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.spMin),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.redAccent.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.spMin),
                 border: Border.all(color: Colors.redAccent.withValues(alpha: 0.2)),
               ),
               child: Text(widget.title, style: tsS13W600),
@@ -93,10 +94,10 @@ class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialo
           style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
           onPressed: _isDeleting ? null : _handleDelete,
           child: _isDeleting
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+              ? SizedBox(
+                  width: 16.spMin,
+                  height: 16.spMin,
+                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                 )
               : Text('Delete URL', style: tsS14W600.copyWith(color: Colors.white)),
         ),

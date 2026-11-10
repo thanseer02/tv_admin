@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/url_badge_widget.dart';
@@ -22,22 +23,22 @@ class UrlDetailsDialogWidget extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return AlertDialog(
-      titlePadding: const EdgeInsets.fromLTRB(24, 20, 16, 12),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      actionsPadding: const EdgeInsets.all(16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      titlePadding: EdgeInsets.fromLTRB(24.spMin, 20.spMin, 16.spMin, 12.spMin),
+      contentPadding: EdgeInsets.symmetric(horizontal: 24.spMin, vertical: 12.spMin),
+      actionsPadding: EdgeInsets.all(16.spMin),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: Text(item.name, style: tsS18W600)),
           IconButton(
-            icon: const Icon(Icons.close, size: 20),
+            icon: Icon(Icons.close, size: 20.spMin),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       ),
       content: SizedBox(
-        width: 520,
+        width: 520.spMin,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,18 +46,18 @@ class UrlDetailsDialogWidget extends StatelessWidget {
               Row(
                 children: [
                   EnvironmentBadgeWidget(environment: item.environment),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.spMin),
                   StatusBadgeWidget(status: item.status),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.spMin),
               _buildField(
                 title: 'URL Address',
                 child: Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.spMin),
                   decoration: BoxDecoration(
                     color: isDark ? Colors.black26 : const Color(0xFFF1F5F9),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.spMin),
                     border: Border.all(color: theme.dividerColor.withValues(alpha: 0.1)),
                   ),
                   child: Row(
@@ -64,15 +65,14 @@ class UrlDetailsDialogWidget extends StatelessWidget {
                       Expanded(
                         child: SelectableText(
                           item.address,
-                          style: const TextStyle(
+                          style: tsS13W600.copyWith(
                             fontFamily: 'monospace',
-                            fontSize: 13,
-                            color: Color(0xFF60A5FA),
+                            color: const Color(0xFF60A5FA),
                           ),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.copy_rounded, size: 18),
+                        icon: Icon(Icons.copy_rounded, size: 18.spMin),
                         tooltip: 'Copy URL',
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: item.address));
@@ -89,7 +89,7 @@ class UrlDetailsDialogWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.spMin),
               _buildField(
                 title: 'Description',
                 child: Text(
@@ -100,7 +100,7 @@ class UrlDetailsDialogWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.spMin),
               Row(
                 children: [
                   Expanded(
@@ -141,7 +141,7 @@ class UrlDetailsDialogWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: tsS11W600.copyWith(color: Colors.grey)),
-        const SizedBox(height: 6),
+        SizedBox(height: 6.spMin),
         child,
       ],
     );

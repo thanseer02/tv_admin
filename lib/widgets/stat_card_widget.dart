@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/styles.dart';
 
 class StatCardWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class StatCardWidget extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        padding: EdgeInsets.symmetric(horizontal: 20.spMin, vertical: 18.spMin),
         child: Row(
           children: [
             Expanded(
@@ -39,13 +40,13 @@ class StatCardWidget extends StatelessWidget {
                       color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6.spMin),
                   Text(
                     value,
                     style: tsS26W700.copyWith(letterSpacing: -0.5),
                   ),
                   if (subtitle != null) ...[
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2.spMin),
                     Text(
                       subtitle!,
                       style: tsS11W600.copyWith(
@@ -57,13 +58,13 @@ class StatCardWidget extends StatelessWidget {
               ),
             ),
             Container(
-              width: 48,
-              height: 48,
+              width: 48.spMin,
+              height: 48.spMin,
               decoration: BoxDecoration(
                 color: iconColor.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.spMin),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: iconColor, size: 24.spMin),
             ),
           ],
         ),

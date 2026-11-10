@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 
@@ -27,13 +28,13 @@ class FilterSearchBarWidget extends StatelessWidget {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
 
     return Wrap(
-      spacing: 12,
-      runSpacing: 12,
+      spacing: 12.spMin,
+      runSpacing: 12.spMin,
       alignment: WrapAlignment.spaceBetween,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         SizedBox(
-          width: isDesktop ? 320 : double.infinity,
+          width: isDesktop ? 320.spMin : double.infinity,
           child: TextField(
             controller: searchController,
             onChanged: onSearchChanged,
@@ -41,10 +42,10 @@ class FilterSearchBarWidget extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'Search by name, address or desc...',
               hintStyle: tsS14W400.copyWith(color: Colors.grey),
-              prefixIcon: const Icon(Icons.search, size: 20),
+              prefixIcon: Icon(Icons.search, size: 20.spMin),
               suffixIcon: searchController.text.isNotEmpty
                   ? IconButton(
-                      icon: const Icon(Icons.clear, size: 18),
+                      icon: Icon(Icons.clear, size: 18.spMin),
                       onPressed: () {
                         searchController.clear();
                         onSearchChanged('');
@@ -55,12 +56,12 @@ class FilterSearchBarWidget extends StatelessWidget {
           ),
         ),
         Wrap(
-          spacing: 12,
-          runSpacing: 12,
+          spacing: 12.spMin,
+          runSpacing: 12.spMin,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             SizedBox(
-              width: 160,
+              width: 160.spMin,
               child: DropdownButtonFormField<UrlEnvironment?>(
                 initialValue: selectedEnvironment,
                 isExpanded: true,
@@ -75,7 +76,7 @@ class FilterSearchBarWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 140,
+              width: 140.spMin,
               child: DropdownButtonFormField<UrlStatus?>(
                 initialValue: selectedStatus,
                 isExpanded: true,
@@ -91,7 +92,7 @@ class FilterSearchBarWidget extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: onAddUrl,
-              icon: const Icon(Icons.add, size: 18),
+              icon: Icon(Icons.add, size: 18.spMin),
               label: Text('Add URL', style: tsS14W600.copyWith(color: Colors.white)),
             ),
           ],

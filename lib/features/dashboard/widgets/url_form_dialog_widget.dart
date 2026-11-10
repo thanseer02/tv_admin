@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/url_item_model.dart';
 import '../../../utils/styles.dart';
 
@@ -103,13 +104,13 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
     final isEdit = widget.initialItem != null;
 
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
       title: Text(
         isEdit ? 'Update Stream URL' : 'Add New Stream URL',
         style: tsS18W600,
       ),
       content: SizedBox(
-        width: 520,
+        width: 520.spMin,
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -126,7 +127,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                   ),
                   validator: (v) => (v == null || v.trim().isEmpty) ? 'Please enter a name' : null,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.spMin),
                 TextFormField(
                   controller: _addressController,
                   style: tsS14W400,
@@ -143,7 +144,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.spMin),
                 Row(
                   children: [
                     Expanded(
@@ -158,7 +159,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 14),
+                    SizedBox(width: 14.spMin),
                     Expanded(
                       child: DropdownButtonFormField<UrlStatus>(
                         initialValue: _selectedStatus,
@@ -173,7 +174,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.spMin),
                 TextFormField(
                   controller: _descController,
                   maxLines: 2,
@@ -196,10 +197,10 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
         ElevatedButton(
           onPressed: _isSubmitting ? null : _handleSubmit,
           child: _isSubmitting
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+              ? SizedBox(
+                  width: 16.spMin,
+                  height: 16.spMin,
+                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                 )
               : Text(isEdit ? 'Save Changes' : 'Create URL', style: tsS14W600.copyWith(color: Colors.white)),
         ),
