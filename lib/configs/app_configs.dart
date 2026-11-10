@@ -6,4 +6,3 @@ class AppConfig {
   static bool isDebugMode = true;
   static EnumBuildEnvironment server = EnumBuildEnvironment.dg;
 }
-

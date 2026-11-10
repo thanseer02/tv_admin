@@ -2,8 +2,8 @@
 // Once your backend APIs are ready, set `USE_MOCK_API = false` and update `API_BASE_URL`.
 
 export const API_CONFIG = {
-  USE_MOCK_API: true,
-  BASE_URL: 'https://api.yourdomain.com/api/v1',
+  USE_MOCK_API: false,
+  BASE_URL: 'http://localhost:8000/api/v1',
   ENDPOINTS: {
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',

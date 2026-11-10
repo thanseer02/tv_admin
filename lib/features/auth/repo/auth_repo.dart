@@ -1,6 +1,7 @@
 import '../../../models/user_model.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/web_api_services.dart';
+import '../../../utils/urls.dart';
 
 extension AuthRepoExtension on WebAPIService {
   Future<UserModel> loginApi({
@@ -8,37 +9,45 @@ extension AuthRepoExtension on WebAPIService {
     required String password,
     bool rememberMe = false,
   }) async {
-    // Simulated API call via WebAPIService
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      final response = await dio.post(
+        urlLogin,
+        data: {
+          'email': email.trim(),
+          'password': password,
+        },
+      );
 
-    if (email.isEmpty || password.isEmpty) {
-      throw Exception('Email and password are required');
+      final data = response.data;
+      if (data == null || data['success'] != true) {
+        throw Exception(data?['message'] ?? 'Login failed');
+      }
+
+      final userData = data['user'] as Map<String, dynamic>;
+      final token = data['token'] as String;
+
+      final user = UserModel.fromJson({
+        ...userData,
+        'token': token,
+      });
+
+      await AuthService().setSession(
+        user: user,
+        token: token,
+        remember: rememberMe,
+      );
+
+      await WebAPIService().initTokenToHeader();
+      return user;
+    } catch (e) {
+      rethrow;
     }
-
-    if (password.length < 6) {
-      throw Exception('Password must be at least 6 characters');
-    }
-
-    final user = UserModel(
-      id: 'usr_${DateTime.now().millisecondsSinceEpoch}',
-      email: email,
-      name: email.split('@').first.toUpperCase(),
-      role: 'Super Administrator',
-      token: 'jwt_mock_token_${DateTime.now().millisecondsSinceEpoch}',
-    );
-
-    await AuthService().setSession(
-      user: user,
-      token: user.token!,
-      remember: rememberMe,
-    );
-
-    await WebAPIService().initTokenToHeader();
-    return user;
   }
 
   Future<void> logoutApi() async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    try {
+      await dio.post(urlLogout);
+    } catch (_) {}
     await AuthService().clearSession();
   }
 
