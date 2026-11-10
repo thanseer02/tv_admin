@@ -15,19 +15,25 @@
   <title>LinkDesk - URL Management Admin Portal</title>
   <link rel="manifest" href="manifest.json">
 
-  <style>
-    body {
-      inset: 0;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-      position: fixed;
-      background-color: #0f172a;
-    }
-  </style>
+  <script>
+    var serviceWorkerVersion = null;
+  </script>
+  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script src="flutter.js" defer></script>
+  <script>
+    window.addEventListener('load', function(ev) {
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-

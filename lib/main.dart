@@ -1,67 +1,51 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'core/theme/app_theme.dart';
-import 'repositories/auth_repository.dart';
-import 'repositories/url_repository.dart';
+import 'package:provider/provider.dart';
+
+import 'configs/app_configs.dart';
+import 'features/auth/view/login_screen.dart';
+import 'features/dashboard/view/dashboard_screen.dart';
+import 'providers/theme_provider.dart';
 import 'services/auth_service.dart';
-import 'screens/login_screen.dart';
-import 'screens/dashboard_screen.dart';
+import 'utils/routes.dart';
+import 'utils/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const LinkDeskApp());
+  runApp(const MyApp());
 }
 
-/// Root Application Widget managing ThemeMode and Authentication Route
-class LinkDeskApp extends StatefulWidget {
-  const LinkDeskApp({super.key});
-
-  @override
-  State<LinkDeskApp> createState() => _LinkDeskAppState();
-}
-
-class _LinkDeskAppState extends State<LinkDeskApp> {
-  ThemeMode _themeMode = ThemeMode.dark;
-  final AuthRepository _authRepository = MockAuthRepository();
-  final UrlRepository _urlRepository = MockUrlRepository();
-
-  void _toggleTheme() {
-    setState(() {
-      _themeMode = _themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
-    });
-  }
-
-  void _handleLoginSuccess() {
-    setState(() {});
-  }
-
-  void _handleLogout() async {
-    await _authRepository.logout();
-    setState(() {});
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isAuthenticated = AuthService().isAuthenticated;
-
-    return MaterialApp(
-      title: 'LinkDesk - URL Admin Portal',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: _themeMode,
-      home: isAuthenticated
-          ? DashboardScreen(
-              urlRepository: _urlRepository,
-              authRepository: _authRepository,
-              isDarkMode: _themeMode == ThemeMode.dark,
-              onToggleTheme: _toggleTheme,
-              onLogout: _handleLogout,
-            )
-          : LoginScreen(
-              authRepository: _authRepository,
-              onLoginSuccess: _handleLoginSuccess,
-            ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      builder: (context, _) {
+        return AdaptiveTheme(
+          initial: AdaptiveThemeMode.dark,
+          light: appLightTheme,
+          dark: appDarkTheme,
+          builder: (theme, darkTheme) {
+            return MaterialApp(
+              navigatorKey: AppConfig.navKey,
+              title: 'LinkDesk - URL Admin Portal',
+              debugShowCheckedModeBanner: false,
+              themeMode: context.watch<ThemeProvider>().themeMode,
+              theme: theme,
+              darkTheme: darkTheme,
+              initialRoute: AuthService().isAuthenticated
+                  ? DashboardScreen.routeName
+                  : LoginScreen.routeName,
+              onGenerateRoute: onAppGenerateRoute(),
+              routes: appRoutes(),
+            );
+          },
+        );
+      },
     );
   }
 }
-
