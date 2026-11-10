@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import '../model/url_item_model.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/auth_service.dart';
-import '../../../widgets/stat_card_widget.dart';
 import '../../../widgets/state_widget.dart';
 import '../../auth/view/login_screen.dart';
 import '../view_model/dashboard_view_model.dart';
+import '../widgets/dashboard_stats_header_widget.dart';
+import '../widgets/dashboard_table_section_widget.dart';
 import '../widgets/filter_search_bar_widget.dart';
 import '../widgets/top_nav_bar_widget.dart';
-import '../widgets/url_data_table_widget.dart';
-import '../widgets/url_details_dialog_widget.dart';
 import '../widgets/url_form_dialog_widget.dart';
-import '../widgets/url_mobile_list_widget.dart';
-import '../widgets/delete_confirmation_dialog_widget.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const String routeName = '/dashboard';
@@ -72,19 +69,19 @@ class _DashboardContent extends StatelessWidget {
                 final filtered = vm.filteredUrls;
 
                 return SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                  padding: EdgeInsets.symmetric(horizontal: 24.spMin, vertical: 24.spMin),
                   child: Center(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1320),
+                      constraints: BoxConstraints(maxWidth: 1320.spMin),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildStatsRow(
+                          DashboardStatsHeaderWidget(
                             total: vm.totalUrls,
                             active: vm.activeUrls,
                             inactive: vm.inactiveUrls,
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.spMin),
                           FilterSearchBarWidget(
                             searchController: vm.searchController,
                             selectedEnvironment: vm.filterEnv,
@@ -108,7 +105,7 @@ class _DashboardContent extends StatelessWidget {
                               );
                             },
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.spMin),
                           Card(
                             clipBehavior: Clip.antiAlias,
                             child: filtered.isEmpty
@@ -136,89 +133,27 @@ class _DashboardContent extends StatelessWidget {
                                           }
                                         : null,
                                   )
-                                : isDesktop
-                                    ? UrlDataTableWidget(
-                                        items: filtered,
-                                        onDetails: (item) => UrlDetailsDialogWidget.show(context, item),
-                                        onEdit: (item) {
-                                          UrlFormDialogWidget.show(
-                                            context: context,
-                                            item: item,
-                                            onSave: ({required name, required address, required description, required environment, required status}) async {
-                                              await context.read<DashboardViewModel>().updateUrl(
-                                                item.copyWith(
-                                                  name: name,
-                                                  address: address,
-                                                  description: description,
-                                                  environment: environment,
-                                                  status: status,
-                                                ),
-                                              );
-                                              if (context.mounted) _showToast(context, 'URL updated successfully');
-                                            },
-                                          );
-                                        },
-                                        onDelete: (item) {
-                                          DeleteConfirmationDialogWidget.show(
-                                            context: context,
-                                            title: item.name,
-                                            onConfirm: () async {
-                                              await context.read<DashboardViewModel>().deleteUrl(item.id);
-                                              if (context.mounted) _showToast(context, 'URL deleted');
-                                            },
-                                          );
-                                        },
-                                        onToggleStatus: (item) async {
-                                          await context.read<DashboardViewModel>().toggleStatus(item.id);
-                                          if (context.mounted) {
-                                            _showToast(
-                                              context,
-                                              'Status updated to ${item.status == UrlStatus.active ? 'Inactive' : 'Active'}',
-                                            );
-                                          }
-                                        },
-                                      )
-                                    : UrlMobileListWidget(
-                                        items: filtered,
-                                        onDetails: (item) => UrlDetailsDialogWidget.show(context, item),
-                                        onEdit: (item) {
-                                          UrlFormDialogWidget.show(
-                                            context: context,
-                                            item: item,
-                                            onSave: ({required name, required address, required description, required environment, required status}) async {
-                                              await context.read<DashboardViewModel>().updateUrl(
-                                                item.copyWith(
-                                                  name: name,
-                                                  address: address,
-                                                  description: description,
-                                                  environment: environment,
-                                                  status: status,
-                                                ),
-                                              );
-                                              if (context.mounted) _showToast(context, 'URL updated successfully');
-                                            },
-                                          );
-                                        },
-                                        onDelete: (item) {
-                                          DeleteConfirmationDialogWidget.show(
-                                            context: context,
-                                            title: item.name,
-                                            onConfirm: () async {
-                                              await context.read<DashboardViewModel>().deleteUrl(item.id);
-                                              if (context.mounted) _showToast(context, 'URL deleted');
-                                            },
-                                          );
-                                        },
-                                        onToggleStatus: (item) async {
-                                          await context.read<DashboardViewModel>().toggleStatus(item.id);
-                                          if (context.mounted) {
-                                            _showToast(
-                                              context,
-                                              'Status updated to ${item.status == UrlStatus.active ? 'Inactive' : 'Active'}',
-                                            );
-                                          }
-                                        },
-                                      ),
+                                : DashboardTableSectionWidget(
+                                    items: filtered,
+                                    isDesktop: isDesktop,
+                                    onUpdate: (item) async {
+                                      await context.read<DashboardViewModel>().updateUrl(item);
+                                      if (context.mounted) _showToast(context, 'URL updated successfully');
+                                    },
+                                    onDelete: (id) async {
+                                      await context.read<DashboardViewModel>().deleteUrl(id);
+                                      if (context.mounted) _showToast(context, 'URL deleted');
+                                    },
+                                    onToggleStatus: (item) async {
+                                      await context.read<DashboardViewModel>().toggleStatus(item.id);
+                                      if (context.mounted) {
+                                        _showToast(
+                                          context,
+                                          'Status updated to ${item.status.name == 'active' ? 'Inactive' : 'Active'}',
+                                        );
+                                      }
+                                    },
+                                  ),
                           ),
                         ],
                       ),
@@ -232,50 +167,4 @@ class _DashboardContent extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildStatsRow({required int total, required int active, required int inactive}) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final isWide = constraints.maxWidth >= 768;
-      final stats = [
-        StatCardWidget(
-          title: 'Total URLs',
-          value: total.toString(),
-          icon: Icons.language_rounded,
-          iconColor: const Color(0xFF6366F1),
-          subtitle: 'All configured stream endpoints',
-        ),
-        StatCardWidget(
-          title: 'Active Streams',
-          value: active.toString(),
-          icon: Icons.check_circle_outline_rounded,
-          iconColor: const Color(0xFF10B981),
-          subtitle: 'Currently routing live traffic',
-        ),
-        StatCardWidget(
-          title: 'Inactive / Paused',
-          value: inactive.toString(),
-          icon: Icons.pause_circle_outline_rounded,
-          iconColor: const Color(0xFF94A3B8),
-          subtitle: 'Disabled or standby streams',
-        ),
-      ];
-
-      if (isWide) {
-        return Row(
-          children: stats.map((card) => Expanded(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: card,
-          ))).toList(),
-        );
-      } else {
-        return Column(
-          children: stats.map((card) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: card,
-          )).toList(),
-        );
-      }
-    });
-  }
 }
-

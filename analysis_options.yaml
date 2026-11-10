@@ -2,6 +2,7 @@ analyzer:
   exclude:
     - build/**
     - web/**
+    - docs/**
 include: package:flutter_lints/flutter.yaml
 
 linter:
