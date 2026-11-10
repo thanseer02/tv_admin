@@ -21,11 +21,13 @@ class SplashViewModel extends ViewModel {
           : LoginScreen.routeName;
 
       // Use AppConfig.navKey if context is unmounted
-      final navState = AppConfig.navKey.currentState ?? (context.mounted ? Navigator.of(context) : null);
+      final navState = AppConfig.navKey.currentState ??
+          (context.mounted ? Navigator.of(context) : null);
       navState?.pushReplacementNamed(targetRoute);
     } catch (e) {
       debugPrint('Navigation error in SplashViewModel: $e');
-      final navState = AppConfig.navKey.currentState ?? (context.mounted ? Navigator.of(context) : null);
+      final navState = AppConfig.navKey.currentState ??
+          (context.mounted ? Navigator.of(context) : null);
       navState?.pushReplacementNamed(LoginScreen.routeName);
     }
   }

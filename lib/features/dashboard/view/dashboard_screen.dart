@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/auth_service.dart';
+import '../../../utils/app_build_methods.dart';
 import '../../../widgets/state_widget.dart';
 import '../../auth/view/login_screen.dart';
 import '../view_model/dashboard_view_model.dart';
@@ -29,17 +30,6 @@ class DashboardScreen extends StatelessWidget {
 
 class _DashboardContent extends StatelessWidget {
   const _DashboardContent();
-
-  void _showToast(BuildContext context, String message, {bool isError = false}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.redAccent : const Color(0xFF10B981),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +92,7 @@ class _DashboardContent extends StatelessWidget {
                                     environment: environment,
                                     status: status,
                                   );
-                                  if (context.mounted) _showToast(context, 'URL successfully added');
+                                  if (context.mounted) showSnackBar('URL successfully added', context: context);
                                 },
                               );
                             },
@@ -129,7 +119,7 @@ class _DashboardContent extends StatelessWidget {
                                                   environment: environment,
                                                   status: status,
                                                 );
-                                                if (context.mounted) _showToast(context, 'URL successfully added');
+                                                if (context.mounted) showSnackBar('URL successfully added', context: context);
                                               },
                                             );
                                           }
@@ -140,18 +130,18 @@ class _DashboardContent extends StatelessWidget {
                                     isDesktop: isDesktop,
                                     onUpdate: (item) async {
                                       await context.read<DashboardViewModel>().updateUrl(item);
-                                      if (context.mounted) _showToast(context, 'URL updated successfully');
+                                      if (context.mounted) showSnackBar('URL updated successfully', context: context);
                                     },
                                     onDelete: (id) async {
                                       await context.read<DashboardViewModel>().deleteUrl(id);
-                                      if (context.mounted) _showToast(context, 'URL deleted');
+                                      if (context.mounted) showSnackBar('URL deleted', context: context);
                                     },
                                     onToggleStatus: (item) async {
                                       await context.read<DashboardViewModel>().toggleStatus(item.id);
                                       if (context.mounted) {
-                                        _showToast(
-                                          context,
+                                        showSnackBar(
                                           'Status updated to ${item.status.name == 'active' ? 'Inactive' : 'Active'}',
+                                          context: context,
                                         );
                                       }
                                     },
