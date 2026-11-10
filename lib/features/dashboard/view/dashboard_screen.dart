@@ -54,7 +54,7 @@ class _DashboardContent extends StatelessWidget {
         children: [
           TopNavBarWidget(
             isDarkMode: isDarkMode,
-            onToggleTheme: () => context.read<ThemeProvider>().toggleTheme(context),
+            onToggleTheme: () => context.read<ThemeProvider>().toggleTheme(),
             onLogout: () async {
               await AuthService().clearSession();
               if (context.mounted) {
