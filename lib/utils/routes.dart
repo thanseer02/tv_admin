@@ -10,15 +10,6 @@ Map<String, Widget Function(BuildContext context)> appRoutes() => {
     };
 
 RouteFactory onAppGenerateRoute() => (settings) {
-      final routes = appRoutes();
-      final builder = routes[settings.name];
-      if (builder != null) {
-        return PageRouteBuilder(
-          settings: settings,
-          pageBuilder: (context, __, ___) => builder(context),
-          transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c),
-        );
-      }
       return null;
     };
 

@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import '../configs/app_configs.dart';
+import '../features/splashscreen/view/splash_screen.dart';
 import '../providers/_mixins.dart';
+import '../services/auth_service.dart';
 import '_mixins_api.dart';
 
 class WebAPIService with WebAPIMixin, MixinAPIProvider {
@@ -9,6 +12,37 @@ class WebAPIService with WebAPIMixin, MixinAPIProvider {
       : _dio = Dio(BaseOptions(
           headers: {"accept": "application/json"},
         )) {
+    // Interceptor to handle 401 & "Bearer token missing" automatically
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (DioException error, ErrorInterceptorHandler handler) async {
+          final statusCode = error.response?.statusCode;
+          final dynamic data = error.response?.data;
+          bool isTokenMissingOrExpired = statusCode == 401;
+
+          if (data is Map) {
+            final detail = (data['detail'] ?? data['message'] ?? '').toString().toLowerCase();
+            if (detail.contains('bearer token missing') ||
+                detail.contains('invalid or expired') ||
+                detail.contains('authentication required') ||
+                detail.contains('token expired')) {
+              isTokenMissingOrExpired = true;
+            }
+          }
+
+          if (isTokenMissingOrExpired) {
+            await AuthService().clearSession();
+            _dio.options.headers.remove('Authorization');
+            AppConfig.navKey.currentState?.pushNamedAndRemoveUntil(
+              SplashScreen.routeName,
+              (route) => false,
+            );
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+
     if (kDebugMode) {
       _dio.interceptors.add(
         LogInterceptor(
