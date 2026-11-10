@@ -2,10 +2,22 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "_fe_analyzer_shared",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-111.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.13"
+    },
+    {
       "name": "adaptive_theme",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/adaptive_theme-3.7.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "analyzer",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/analyzer-14.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.13"
     },
     {
       "name": "args",
@@ -26,10 +38,52 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "build",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/build-5.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
+    },
+    {
+      "name": "build_config",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/build_config-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
+    },
+    {
+      "name": "build_daemon",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/build_daemon-4.1.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
+    },
+    {
+      "name": "build_runner",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/build_runner-2.17.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
+    },
+    {
+      "name": "built_collection",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/built_collection-5.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
+    },
+    {
+      "name": "built_value",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/built_value-8.13.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/characters-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "checked_yaml",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/checked_yaml-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "cli_util",
@@ -56,10 +110,22 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "convert",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/convert-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/crypto-3.0.8",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "dart_style",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/dart_style-3.1.14",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
     },
     {
       "name": "dio",
@@ -90,6 +156,12 @@
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/file-7.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
     },
     {
       "name": "flutter",
@@ -128,6 +200,18 @@
       "languageVersion": "3.11"
     },
     {
+      "name": "glob",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/glob-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "graphs",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/graphs-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "hooks",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/hooks-2.2.0",
       "packageUri": "lib/",
@@ -138,6 +222,12 @@
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/http-1.6.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "http_multi_server",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/http_multi_server-3.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "http_parser",
@@ -152,6 +242,12 @@
       "languageVersion": "3.9"
     },
     {
+      "name": "io",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/io-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "jni",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/jni-1.1.2",
       "packageUri": "lib/",
@@ -162,6 +258,18 @@
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/jni_util-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/json_annotation-4.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
+      "name": "json_serializable",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/json_serializable-6.15.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.12"
     },
     {
       "name": "leak_tracker",
@@ -284,6 +392,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "pool",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/pool-1.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "provider",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/provider-6.1.5+1",
       "packageUri": "lib/",
@@ -294,6 +408,12 @@
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/pub_semver-2.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "pubspec_parse",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/pubspec_parse-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "record_use",
@@ -344,10 +464,34 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "shelf",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/shelf-1.4.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
+      "name": "shelf_web_socket",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/shelf_web_socket-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/tanseer/fvm/versions/3.47.9/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.11"
+    },
+    {
+      "name": "source_gen",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/source_gen-4.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
+    },
+    {
+      "name": "source_helper",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/source_helper-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     },
     {
       "name": "source_span",
@@ -366,6 +510,12 @@
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/stream_channel-2.1.4",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "stream_transform",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/stream_transform-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "string_scanner",
@@ -422,10 +572,28 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "watcher",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/watcher-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "web",
       "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/web-1.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.13"
+    },
+    {
+      "name": "web_socket",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/web_socket-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "web_socket_channel",
+      "rootUri": "file:///Users/tanseer/.pub-cache/hosted/pub.dev/web_socket_channel-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "xdg_directories",

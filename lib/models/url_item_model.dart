@@ -1,45 +1,44 @@
-enum UrlEnvironment {
-  production('Production'),
-  staging('Staging'),
-  testing('Testing'),
-  other('Other');
+import 'package:json_annotation/json_annotation.dart';
+import 'url_environment.dart';
+import 'url_status.dart';
 
-  final String label;
-  const UrlEnvironment(this.label);
+export 'url_environment.dart';
+export 'url_status.dart';
 
-  static UrlEnvironment fromString(String? value) {
-    return UrlEnvironment.values.firstWhere(
-      (e) => e.name.toLowerCase() == (value ?? '').toLowerCase() ||
-             e.label.toLowerCase() == (value ?? '').toLowerCase(),
-      orElse: () => UrlEnvironment.production,
-    );
-  }
-}
+part 'url_item_model.g.dart';
 
-enum UrlStatus {
-  active('Active'),
-  inactive('Inactive');
-
-  final String label;
-  const UrlStatus(this.label);
-
-  static UrlStatus fromString(String? value) {
-    return UrlStatus.values.firstWhere(
-      (s) => s.name.toLowerCase() == (value ?? '').toLowerCase() ||
-             s.label.toLowerCase() == (value ?? '').toLowerCase(),
-      orElse: () => UrlStatus.active,
-    );
-  }
-}
-
+@JsonSerializable()
 class UrlItemModel {
+  @JsonKey(name: 'id', defaultValue: '')
   final String id;
+
+  @JsonKey(name: 'name', defaultValue: '')
   final String name;
+
+  @JsonKey(name: 'address', defaultValue: '')
   final String address;
+
+  @JsonKey(name: 'description', defaultValue: '')
   final String description;
+
+  @JsonKey(
+    name: 'environment',
+    fromJson: UrlEnvironment.fromString,
+    toJson: _envToJson,
+  )
   final UrlEnvironment environment;
+
+  @JsonKey(
+    name: 'status',
+    fromJson: UrlStatus.fromString,
+    toJson: _statusToJson,
+  )
   final UrlStatus status;
+
+  @JsonKey(name: 'createdAt', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime createdAt;
+
+  @JsonKey(name: 'updatedAt', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime updatedAt;
 
   const UrlItemModel({
@@ -54,34 +53,21 @@ class UrlItemModel {
   });
 
   factory UrlItemModel.fromJson(Map<String, dynamic> json) {
-    return UrlItemModel(
-      id: json['id'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      address: json['address'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      environment: UrlEnvironment.fromString(json['environment'] as String?),
-      status: UrlStatus.fromString(json['status'] as String?),
-      createdAt: json['createdAt'] != null
-          ? DateTime.tryParse(json['createdAt'] as String) ?? DateTime.now()
-          : DateTime.now(),
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.tryParse(json['updatedAt'] as String) ?? DateTime.now()
-          : DateTime.now(),
-    );
+    // Gracefully handle backend variations where 'title' maps to 'name' and 'url' maps to 'address'
+    final map = Map<String, dynamic>.from(json);
+    if (!map.containsKey('name') || map['name'] == null) {
+      map['name'] = map['title'] ?? '';
+    }
+    if (!map.containsKey('address') || map['address'] == null) {
+      map['address'] = map['url'] ?? '';
+    }
+    if (!map.containsKey('description') || map['description'] == null) {
+      map['description'] = map['notes'] ?? '';
+    }
+    return _$UrlItemModelFromJson(map);
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'address': address,
-      'description': description,
-      'environment': environment.name,
-      'status': status.name,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toJson() => _$UrlItemModelToJson(this);
 
   UrlItemModel copyWith({
     String? id,
@@ -104,5 +90,16 @@ class UrlItemModel {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
-}
 
+  static String _envToJson(UrlEnvironment env) => env.name;
+  static String _statusToJson(UrlStatus st) => st.name;
+
+  static DateTime _dateTimeFromJson(dynamic value) {
+    if (value is String) {
+      return DateTime.tryParse(value) ?? DateTime.now();
+    }
+    return DateTime.now();
+  }
+
+  static String _dateTimeToJson(DateTime dt) => dt.toIso8601String();
+}
