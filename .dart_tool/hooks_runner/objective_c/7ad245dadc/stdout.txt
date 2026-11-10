@@ -1,0 +1,54 @@
+Running `(cd /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/; ANDROID_HOME=/Users/tanseer/Library/Android/sdk TMPDIR=/var/folders/2r/bh6w1dfn4nn2vbcs_6c3bbg40000gn/T/ PATH=/Users/tanseer/fvm/versions/3.47.9/bin:/opt/homebrew/opt/openjdk@17/bin:/Users/tanseer/.gemini/antigravity/bin:/Users/tanseer/.antigravity-ide/antigravity-ide/bin:/Users/tanseer/.antigravity-ide/antigravity-ide/bin:/Users/tanseer/.antigravity-ide/antigravity-ide/bin:/Users/tanseer/.antigravity-ide/antigravity-ide/bin:/Users/tanseer/.local/bin:/usr/local/opt/ruby/bin:/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/opt/openjdk@17/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/opt/openjdk@17/bin:/Users/tanseer/Library/Android/sdk/platform-tools:/Users/tanseer/Library/Android/sdk/emulator:/Users/tanseer/Library/Android/sdk/cmdline-tools/latest/bin:/Users/tanseer/Library/Android/sdk/platform-tools:/Users/tanseer/Library/Android/sdk/emulator:/Users/tanseer/Library/Android/sdk/cmdline-tools/latest/bin:/Users/tanseer/Library/Android/sdk/platform-tools:/Users/tanseer/Library/Android/sdk/emulator:/Users/tanseer/Library/Android/sdk/cmdline-tools/latest/bin:/Users/tanseer/Library/Android/sdk/platform-tools:/Users/tanseer/Library/Android/sdk/emulator:/Users/tanseer/Library/Android/sdk/cmdline-tools/latest/bin USERPROFILE=/Users/tanseer HOME=/Users/tanseer /Users/tanseer/fvm/versions/3.47.9/bin/cache/dart-sdk/bin/dart --packages=/Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/package_config.json /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/objective_c/7ad245dadc/hook.dill --config=/Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/objective_c/7ad245dadc/input.json )`.
+INFO: 2026-11-10 14:24:57.243473: Using compiler /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang from BuildInput.cCompiler.cc.
+
+INFO: 2026-11-10 14:24:57.247381: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/include/dart_api_dl.c -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-11-10 14:24:57.248425: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/objective_c.c -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o
+
+INFO: 2026-11-10 14:24:57.248596: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/input_stream_adapter.m -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o
+
+INFO: 2026-11-10 14:24:57.248817: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/observer.m -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/observer.m.o
+
+
+
+.o
+
+INFO: 2026-11-10 14:24:57.249029: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/protocol.m -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o
+INFO: 2026-11-10 14:24:57.249132: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/tanseer/.pub-cache/hosted/pub.dev/objective_c-9.6.3/src/objective_c_bindings_generated.m -fpic -gline-tables-only -I src -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-11-10 14:24:57.705178: 
+INFO: 2026-11-10 14:24:57.705254: 
+INFO: 2026-11-10 14:24:57.705281: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o
+INFO: 2026-11-10 14:24:57.705524: 
+INFO: 2026-11-10 14:24:57.705537: 
+INFO: 2026-11-10 14:24:57.705545: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/observer.m.o
+INFO: 2026-11-10 14:24:57.705583: 
+INFO: 2026-11-10 14:24:57.705592: 
+INFO: 2026-11-10 14:24:57.705601: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-11-10 14:24:57.706193: 
+INFO: 2026-11-10 14:24:57.706245: 
+INFO: 2026-11-10 14:24:57.706273: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o
+
+INFO: 2026-11-10 14:24:57.971124: 
+INFO: 2026-11-10 14:24:57.971172: 
+INFO: 2026-11-10 14:24:57.971183: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/ns_number.m.o
+
+INFO: 2026-11-10 14:24:57.986857: 
+INFO: 2026-11-10 14:24:57.986901: 
+INFO: 2026-11-10 14:24:57.986911: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.m.o
+
+INFO: 2026-11-10 14:24:57.993057: 
+INFO: 2026-11-10 14:24:57.993089: 
+INFO: 2026-11-10 14:24:57.993100: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o
+
+INFO: 2026-11-10 14:24:58.024859: 
+INFO: 2026-11-10 14:24:58.024886: 
+INFO: 2026-11-10 14:24:58.024896: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-11-10 14:24:58.025199: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -shared -Wl,-encryptable -undefined dynamic_lookup -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.m.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/observer.m.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/ns_number.m.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o -o /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/objective_c.dylib
+
+INFO: 2026-11-10 14:24:58.144396: 
+INFO: 2026-11-10 14:24:58.144450: 
+INFO: 2026-11-10 14:24:58.144460: Generated /Users/tanseer/Documents/oopsss/tv_app/tv_admin/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/objective_c.dylib
+

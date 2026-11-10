@@ -11,18 +11,37 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) {
-        final vm = SplashViewModel();
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          vm.decideNavigation(ctx);
-        });
-        return vm;
-      },
-      child: const Scaffold(
-        body: Center(
-          child: SplashBrandWidget(),
-        ),
+      create: (_) => SplashViewModel(),
+      child: const _SplashBodyWidget(),
+    );
+  }
+}
+
+class _SplashBodyWidget extends StatefulWidget {
+  const _SplashBodyWidget();
+
+  @override
+  State<_SplashBodyWidget> createState() => _SplashBodyWidgetState();
+}
+
+class _SplashBodyWidgetState extends State<_SplashBodyWidget> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<SplashViewModel>().decideNavigation(context);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: SplashBrandWidget(),
       ),
     );
   }
 }
+

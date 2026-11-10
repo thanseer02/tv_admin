@@ -9,6 +9,7 @@ import '../view_model/dashboard_view_model.dart';
 import '../widgets/dashboard_stats_header_widget.dart';
 import '../widgets/dashboard_table_section_widget.dart';
 import '../widgets/filter_search_bar_widget.dart';
+import '../widgets/logout_confirmation_dialog_widget.dart';
 import '../widgets/top_nav_bar_widget.dart';
 import '../widgets/url_form_dialog_widget.dart';
 
@@ -53,9 +54,12 @@ class _DashboardContent extends StatelessWidget {
             isDarkMode: isDarkMode,
             onToggleTheme: () => context.read<ThemeProvider>().toggleTheme(),
             onLogout: () async {
-              await AuthService().clearSession();
-              if (context.mounted) {
-                Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+              final confirmed = await LogoutConfirmationDialogWidget.show(context);
+              if (confirmed == true && context.mounted) {
+                await AuthService().clearSession();
+                if (context.mounted) {
+                  Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                }
               }
             },
           ),

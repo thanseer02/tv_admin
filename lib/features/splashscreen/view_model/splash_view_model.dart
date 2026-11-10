@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../configs/app_configs.dart';
 import '../../../providers/view_model.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/web_api_services.dart';
@@ -7,20 +8,25 @@ import '../../dashboard/view/dashboard_screen.dart';
 
 class SplashViewModel extends ViewModel {
   Future<void> decideNavigation(BuildContext context) async {
-    // Artificial minimum delay for smooth branding display
-    await Future.delayed(const Duration(milliseconds: 1200));
+    try {
+      await Future.delayed(const Duration(milliseconds: 1000));
 
-    final hasStoredSession = await AuthService().initSessionFromStorage();
-    if (hasStoredSession) {
-      await WebAPIService().initTokenToHeader();
-    }
+      final hasStoredSession = await AuthService().initSessionFromStorage();
+      if (hasStoredSession) {
+        await WebAPIService().initTokenToHeader();
+      }
 
-    if (!context.mounted) return;
+      final targetRoute = AuthService().isAuthenticated
+          ? DashboardScreen.routeName
+          : LoginScreen.routeName;
 
-    if (AuthService().isAuthenticated) {
-      Navigator.pushReplacementNamed(context, DashboardScreen.routeName);
-    } else {
-      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+      // Use AppConfig.navKey if context is unmounted
+      final navState = AppConfig.navKey.currentState ?? (context.mounted ? Navigator.of(context) : null);
+      navState?.pushReplacementNamed(targetRoute);
+    } catch (e) {
+      debugPrint('Navigation error in SplashViewModel: $e');
+      final navState = AppConfig.navKey.currentState ?? (context.mounted ? Navigator.of(context) : null);
+      navState?.pushReplacementNamed(LoginScreen.routeName);
     }
   }
 }
