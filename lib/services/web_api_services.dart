@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../providers/_mixins.dart';
 import '_mixins_api.dart';
 
@@ -7,7 +8,20 @@ class WebAPIService with WebAPIMixin, MixinAPIProvider {
   WebAPIService._initialise()
       : _dio = Dio(BaseOptions(
           headers: {"accept": "application/json"},
-        ));
+        )) {
+    if (kDebugMode) {
+      _dio.interceptors.add(
+        LogInterceptor(
+          request: true,
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: false,
+          responseBody: true,
+          error: true,
+        ),
+      );
+    }
+  }
 
   static final WebAPIService _instance = WebAPIService._initialise();
   factory WebAPIService() => _instance;

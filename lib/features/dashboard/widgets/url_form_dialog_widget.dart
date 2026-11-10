@@ -49,7 +49,6 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
   late TextEditingController _nameController;
   late TextEditingController _addressController;
   late TextEditingController _descController;
-  late ValueNotifier<UrlEnvironment> _selectedEnvNotifier;
   late ValueNotifier<UrlStatus> _selectedStatusNotifier;
   final ValueNotifier<bool> _isSubmittingNotifier = ValueNotifier<bool>(false);
 
@@ -60,7 +59,6 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
     _nameController = TextEditingController(text: item?.name ?? '');
     _addressController = TextEditingController(text: item?.address ?? '');
     _descController = TextEditingController(text: item?.description ?? '');
-    _selectedEnvNotifier = ValueNotifier<UrlEnvironment>(item?.environment ?? UrlEnvironment.production);
     _selectedStatusNotifier = ValueNotifier<UrlStatus>(item?.status ?? UrlStatus.active);
   }
 
@@ -69,7 +67,6 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
     _nameController.dispose();
     _addressController.dispose();
     _descController.dispose();
-    _selectedEnvNotifier.dispose();
     _selectedStatusNotifier.dispose();
     _isSubmittingNotifier.dispose();
     super.dispose();
@@ -84,7 +81,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
         name: _nameController.text.trim(),
         address: _addressController.text.trim(),
         description: _descController.text.trim(),
-        environment: _selectedEnvNotifier.value,
+        environment: widget.initialItem?.environment ?? UrlEnvironment.production,
         status: _selectedStatusNotifier.value,
       );
       if (mounted) Navigator.of(context).pop();
@@ -148,44 +145,20 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                   },
                 ),
                 SizedBox(height: 16.spMin),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ValueListenableBuilder<UrlEnvironment>(
-                        valueListenable: _selectedEnvNotifier,
-                        builder: (context, selectedEnv, _) {
-                          return DropdownButtonFormField<UrlEnvironment>(
-                            initialValue: selectedEnv,
-                            decoration: const InputDecoration(labelText: 'Environment'),
-                            items: UrlEnvironment.values.map((env) {
-                              return DropdownMenuItem(value: env, child: Text(env.label, style: tsS14W400));
-                            }).toList(),
-                            onChanged: (val) {
-                              if (val != null) _selectedEnvNotifier.value = val;
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 14.spMin),
-                    Expanded(
-                      child: ValueListenableBuilder<UrlStatus>(
-                        valueListenable: _selectedStatusNotifier,
-                        builder: (context, selectedStatus, _) {
-                          return DropdownButtonFormField<UrlStatus>(
-                            initialValue: selectedStatus,
-                            decoration: const InputDecoration(labelText: 'Status'),
-                            items: UrlStatus.values.map((status) {
-                              return DropdownMenuItem(value: status, child: Text(status.label, style: tsS14W400));
-                            }).toList(),
-                            onChanged: (val) {
-                              if (val != null) _selectedStatusNotifier.value = val;
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                ValueListenableBuilder<UrlStatus>(
+                  valueListenable: _selectedStatusNotifier,
+                  builder: (context, selectedStatus, _) {
+                    return DropdownButtonFormField<UrlStatus>(
+                      initialValue: selectedStatus,
+                      decoration: const InputDecoration(labelText: 'Status'),
+                      items: UrlStatus.values.map((status) {
+                        return DropdownMenuItem(value: status, child: Text(status.label, style: tsS14W400));
+                      }).toList(),
+                      onChanged: (val) {
+                        if (val != null) _selectedStatusNotifier.value = val;
+                      },
+                    );
+                  },
                 ),
                 SizedBox(height: 16.spMin),
                 TextFormField(

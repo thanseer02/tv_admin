@@ -84,10 +84,8 @@ class _DashboardContent extends StatelessWidget {
                           SizedBox(height: 24.spMin),
                           FilterSearchBarWidget(
                             searchController: vm.searchController,
-                            selectedEnvironment: vm.filterEnv,
                             selectedStatus: vm.filterStatus,
                             onSearchChanged: (v) => context.read<DashboardViewModel>().setSearchQuery(v),
-                            onEnvironmentChanged: (env) => context.read<DashboardViewModel>().setFilterEnv(env),
                             onStatusChanged: (st) => context.read<DashboardViewModel>().setFilterStatus(st),
                             onAddUrl: () {
                               UrlFormDialogWidget.show(
@@ -111,7 +109,7 @@ class _DashboardContent extends StatelessWidget {
                             child: filtered.isEmpty
                                 ? EmptyStateWidget(
                                     title: 'No URLs Found',
-                                    description: vm.searchQuery.isNotEmpty || vm.filterEnv != null || vm.filterStatus != null
+                                    description: vm.searchQuery.isNotEmpty || vm.filterStatus != null
                                         ? 'No streams match your filter parameters. Try clearing the search query or status.'
                                         : 'You have not added any stream URLs yet.',
                                     actionLabel: vm.searchQuery.isEmpty ? 'Add Your First URL' : null,

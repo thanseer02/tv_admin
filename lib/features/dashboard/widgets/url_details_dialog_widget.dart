@@ -43,13 +43,7 @@ class UrlDetailsDialogWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  EnvironmentBadgeWidget(environment: item.environment),
-                  SizedBox(width: 8.spMin),
-                  StatusBadgeWidget(status: item.status),
-                ],
-              ),
+              StatusBadgeWidget(status: item.status),
               SizedBox(height: 20.spMin),
               _buildField(
                 title: 'URL Address',

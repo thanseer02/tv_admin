@@ -5,20 +5,16 @@ import '../../../utils/styles.dart';
 
 class FilterSearchBarWidget extends StatelessWidget {
   final TextEditingController searchController;
-  final UrlEnvironment? selectedEnvironment;
   final UrlStatus? selectedStatus;
   final Function(String) onSearchChanged;
-  final Function(UrlEnvironment?) onEnvironmentChanged;
   final Function(UrlStatus?) onStatusChanged;
   final VoidCallback onAddUrl;
 
   const FilterSearchBarWidget({
     super.key,
     required this.searchController,
-    required this.selectedEnvironment,
     required this.selectedStatus,
     required this.onSearchChanged,
-    required this.onEnvironmentChanged,
     required this.onStatusChanged,
     required this.onAddUrl,
   });
@@ -34,7 +30,7 @@ class FilterSearchBarWidget extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         SizedBox(
-          width: isDesktop ? 320.spMin : double.infinity,
+          width: isDesktop ? 360.spMin : double.infinity,
           child: TextField(
             controller: searchController,
             onChanged: onSearchChanged,
@@ -62,21 +58,6 @@ class FilterSearchBarWidget extends StatelessWidget {
           children: [
             SizedBox(
               width: 160.spMin,
-              child: DropdownButtonFormField<UrlEnvironment?>(
-                initialValue: selectedEnvironment,
-                isExpanded: true,
-                decoration: const InputDecoration(labelText: 'Environment'),
-                items: [
-                  DropdownMenuItem(value: null, child: Text('All Envs', style: tsS14W400)),
-                  ...UrlEnvironment.values.map((env) {
-                    return DropdownMenuItem(value: env, child: Text(env.label, style: tsS14W400));
-                  }),
-                ],
-                onChanged: onEnvironmentChanged,
-              ),
-            ),
-            SizedBox(
-              width: 140.spMin,
               child: DropdownButtonFormField<UrlStatus?>(
                 initialValue: selectedStatus,
                 isExpanded: true,

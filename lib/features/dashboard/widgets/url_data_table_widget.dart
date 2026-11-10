@@ -34,7 +34,7 @@ class UrlDataTableWidget extends StatelessWidget {
           horizontalMargin: 20.spMin,
           columnSpacing: 24.spMin,
           columns: [
-            DataColumn(label: Text('NAME & ENVIRONMENT', style: tsS11W600)),
+            DataColumn(label: Text('NAME', style: tsS11W600)),
             DataColumn(label: Text('URL ADDRESS', style: tsS11W600)),
             DataColumn(label: Text('STATUS', style: tsS11W600)),
             DataColumn(label: Text('LAST UPDATED', style: tsS11W600)),
@@ -46,14 +46,9 @@ class UrlDataTableWidget extends StatelessWidget {
                 DataCell(
                   InkWell(
                     onTap: () => onDetails(item),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(item.name, style: tsS13W600),
-                        SizedBox(height: 4.spMin),
-                        EnvironmentBadgeWidget(environment: item.environment),
-                      ],
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(item.name, style: tsS13W600),
                     ),
                   ),
                 ),

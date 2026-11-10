@@ -48,8 +48,6 @@ class UrlMobileListWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 8.spMin),
-                EnvironmentBadgeWidget(environment: item.environment),
                 SizedBox(height: 12.spMin),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.spMin, vertical: 8.spMin),
