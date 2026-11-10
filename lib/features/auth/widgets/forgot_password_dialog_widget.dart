@@ -7,7 +7,8 @@ class ForgotPasswordDialogWidget extends StatefulWidget {
 
   const ForgotPasswordDialogWidget({super.key, required this.onSubmit});
 
-  static Future<void> show(BuildContext context, Future<void> Function(String email) onSubmit) {
+  static Future<void> show(
+      BuildContext context, Future<void> Function(String email) onSubmit) {
     return showDialog(
       context: context,
       builder: (context) => ForgotPasswordDialogWidget(onSubmit: onSubmit),
@@ -15,30 +16,34 @@ class ForgotPasswordDialogWidget extends StatefulWidget {
   }
 
   @override
-  State<ForgotPasswordDialogWidget> createState() => _ForgotPasswordDialogWidgetState();
+  State<ForgotPasswordDialogWidget> createState() =>
+      _ForgotPasswordDialogWidgetState();
 }
 
-class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget> {
+class _ForgotPasswordDialogWidgetState
+    extends State<ForgotPasswordDialogWidget> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final _isLoadingNotifier = ValueNotifier<bool>(false);
 
   @override
   void dispose() {
     _emailController.dispose();
+    _isLoadingNotifier.dispose();
     super.dispose();
   }
 
   Future<void> _handleSend() async {
     if (!_formKey.currentState!.validate()) return;
-    setState(() => _isLoading = true);
+    _isLoadingNotifier.value = true;
     try {
       await widget.onSubmit(_emailController.text.trim());
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Password reset instructions have been sent to your email.'),
+            content: Text(
+                'Password reset instructions have been sent to your email.'),
             backgroundColor: Color(0xFF10B981),
             behavior: SnackBarBehavior.floating,
           ),
@@ -47,18 +52,20 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.redAccent),
+          SnackBar(
+              content: Text('Error: $e'), backgroundColor: Colors.redAccent),
         );
       }
     } finally {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) _isLoadingNotifier.value = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.spMin)),
       title: Text('Reset Your Password', style: tsS18W600),
       content: SizedBox(
         width: 420.spMin,
@@ -70,7 +77,10 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
             children: [
               Text(
                 'Enter the email address associated with your LinkDesk admin account and we will send you a reset link.',
-                style: tsS13W600.copyWith(fontWeight: FontWeight.normal, color: Colors.grey, height: 1.4),
+                style: tsS13W600.copyWith(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                    height: 1.4),
               ),
               SizedBox(height: 16.spMin),
               TextFormField(
@@ -82,8 +92,12 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
                   prefixIcon: Icon(Icons.email_outlined, size: 20.spMin),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Please enter your email';
-                  if (!val.contains('@') || !val.contains('.')) return 'Please enter a valid email';
+                  if (val == null || val.trim().isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!val.contains('@') || !val.contains('.')) {
+                    return 'Please enter a valid email';
+                  }
                   return null;
                 },
               ),
@@ -92,19 +106,32 @@ class _ForgotPasswordDialogWidgetState extends State<ForgotPasswordDialogWidget>
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text('Cancel', style: tsS14W600),
-        ),
-        ElevatedButton(
-          onPressed: _isLoading ? null : _handleSend,
-          child: _isLoading
-              ? SizedBox(
-                  width: 16.spMin,
-                  height: 16.spMin,
-                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                )
-              : Text('Send Reset Link', style: tsS14W600.copyWith(color: Colors.white)),
+        ValueListenableBuilder<bool>(
+          valueListenable: _isLoadingNotifier,
+          builder: (context, isLoading, _) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  onPressed:
+                      isLoading ? null : () => Navigator.of(context).pop(),
+                  child: Text('Cancel', style: tsS14W600),
+                ),
+                ElevatedButton(
+                  onPressed: isLoading ? null : _handleSend,
+                  child: isLoading
+                      ? SizedBox(
+                          width: 16.spMin,
+                          height: 16.spMin,
+                          child: const CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text('Send Reset Link',
+                          style: tsS14W600.copyWith(color: Colors.white)),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );

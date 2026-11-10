@@ -32,10 +32,16 @@ class DeleteConfirmationDialogWidget extends StatefulWidget {
 }
 
 class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialogWidget> {
-  bool _isDeleting = false;
+  final ValueNotifier<bool> _isDeletingNotifier = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    _isDeletingNotifier.dispose();
+    super.dispose();
+  }
 
   Future<void> _handleDelete() async {
-    setState(() => _isDeleting = true);
+    _isDeletingNotifier.value = true;
     try {
       await widget.onConfirm();
       if (mounted) Navigator.of(context).pop(true);
@@ -46,7 +52,7 @@ class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialo
         );
       }
     } finally {
-      if (mounted) setState(() => _isDeleting = false);
+      if (mounted) _isDeletingNotifier.value = false;
     }
   }
 
@@ -86,20 +92,30 @@ class _DeleteConfirmationDialogWidgetState extends State<DeleteConfirmationDialo
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: _isDeleting ? null : () => Navigator.of(context).pop(false),
-          child: Text('Cancel', style: tsS14W600),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-          onPressed: _isDeleting ? null : _handleDelete,
-          child: _isDeleting
-              ? SizedBox(
-                  width: 16.spMin,
-                  height: 16.spMin,
-                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                )
-              : Text('Delete URL', style: tsS14W600.copyWith(color: Colors.white)),
+        ValueListenableBuilder<bool>(
+          valueListenable: _isDeletingNotifier,
+          builder: (context, isDeleting, _) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  onPressed: isDeleting ? null : () => Navigator.of(context).pop(false),
+                  child: Text('Cancel', style: tsS14W600),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                  onPressed: isDeleting ? null : _handleDelete,
+                  child: isDeleting
+                      ? SizedBox(
+                          width: 16.spMin,
+                          height: 16.spMin,
+                          child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text('Delete URL', style: tsS14W600.copyWith(color: Colors.white)),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );

@@ -49,9 +49,9 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
   late TextEditingController _nameController;
   late TextEditingController _addressController;
   late TextEditingController _descController;
-  late UrlEnvironment _selectedEnv;
-  late UrlStatus _selectedStatus;
-  bool _isSubmitting = false;
+  late ValueNotifier<UrlEnvironment> _selectedEnvNotifier;
+  late ValueNotifier<UrlStatus> _selectedStatusNotifier;
+  final ValueNotifier<bool> _isSubmittingNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -60,8 +60,8 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
     _nameController = TextEditingController(text: item?.name ?? '');
     _addressController = TextEditingController(text: item?.address ?? '');
     _descController = TextEditingController(text: item?.description ?? '');
-    _selectedEnv = item?.environment ?? UrlEnvironment.production;
-    _selectedStatus = item?.status ?? UrlStatus.active;
+    _selectedEnvNotifier = ValueNotifier<UrlEnvironment>(item?.environment ?? UrlEnvironment.production);
+    _selectedStatusNotifier = ValueNotifier<UrlStatus>(item?.status ?? UrlStatus.active);
   }
 
   @override
@@ -69,20 +69,23 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
     _nameController.dispose();
     _addressController.dispose();
     _descController.dispose();
+    _selectedEnvNotifier.dispose();
+    _selectedStatusNotifier.dispose();
+    _isSubmittingNotifier.dispose();
     super.dispose();
   }
 
   Future<void> _handleSubmit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _isSubmitting = true);
+    _isSubmittingNotifier.value = true;
     try {
       await widget.onSave(
         name: _nameController.text.trim(),
         address: _addressController.text.trim(),
         description: _descController.text.trim(),
-        environment: _selectedEnv,
-        status: _selectedStatus,
+        environment: _selectedEnvNotifier.value,
+        status: _selectedStatusNotifier.value,
       );
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
@@ -95,7 +98,7 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
         );
       }
     } finally {
-      if (mounted) setState(() => _isSubmitting = false);
+      if (mounted) _isSubmittingNotifier.value = false;
     }
   }
 
@@ -148,27 +151,37 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
                 Row(
                   children: [
                     Expanded(
-                      child: DropdownButtonFormField<UrlEnvironment>(
-                        initialValue: _selectedEnv,
-                        decoration: const InputDecoration(labelText: 'Environment'),
-                        items: UrlEnvironment.values.map((env) {
-                          return DropdownMenuItem(value: env, child: Text(env.label, style: tsS14W400));
-                        }).toList(),
-                        onChanged: (val) {
-                          if (val != null) setState(() => _selectedEnv = val);
+                      child: ValueListenableBuilder<UrlEnvironment>(
+                        valueListenable: _selectedEnvNotifier,
+                        builder: (context, selectedEnv, _) {
+                          return DropdownButtonFormField<UrlEnvironment>(
+                            initialValue: selectedEnv,
+                            decoration: const InputDecoration(labelText: 'Environment'),
+                            items: UrlEnvironment.values.map((env) {
+                              return DropdownMenuItem(value: env, child: Text(env.label, style: tsS14W400));
+                            }).toList(),
+                            onChanged: (val) {
+                              if (val != null) _selectedEnvNotifier.value = val;
+                            },
+                          );
                         },
                       ),
                     ),
                     SizedBox(width: 14.spMin),
                     Expanded(
-                      child: DropdownButtonFormField<UrlStatus>(
-                        initialValue: _selectedStatus,
-                        decoration: const InputDecoration(labelText: 'Status'),
-                        items: UrlStatus.values.map((status) {
-                          return DropdownMenuItem(value: status, child: Text(status.label, style: tsS14W400));
-                        }).toList(),
-                        onChanged: (val) {
-                          if (val != null) setState(() => _selectedStatus = val);
+                      child: ValueListenableBuilder<UrlStatus>(
+                        valueListenable: _selectedStatusNotifier,
+                        builder: (context, selectedStatus, _) {
+                          return DropdownButtonFormField<UrlStatus>(
+                            initialValue: selectedStatus,
+                            decoration: const InputDecoration(labelText: 'Status'),
+                            items: UrlStatus.values.map((status) {
+                              return DropdownMenuItem(value: status, child: Text(status.label, style: tsS14W400));
+                            }).toList(),
+                            onChanged: (val) {
+                              if (val != null) _selectedStatusNotifier.value = val;
+                            },
+                          );
                         },
                       ),
                     ),
@@ -190,19 +203,29 @@ class _UrlFormDialogWidgetState extends State<UrlFormDialogWidget> {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: _isSubmitting ? null : () => Navigator.of(context).pop(),
-          child: Text('Cancel', style: tsS14W600),
-        ),
-        ElevatedButton(
-          onPressed: _isSubmitting ? null : _handleSubmit,
-          child: _isSubmitting
-              ? SizedBox(
-                  width: 16.spMin,
-                  height: 16.spMin,
-                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                )
-              : Text(isEdit ? 'Save Changes' : 'Create URL', style: tsS14W600.copyWith(color: Colors.white)),
+        ValueListenableBuilder<bool>(
+          valueListenable: _isSubmittingNotifier,
+          builder: (context, isSubmitting, _) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  onPressed: isSubmitting ? null : () => Navigator.of(context).pop(),
+                  child: Text('Cancel', style: tsS14W600),
+                ),
+                ElevatedButton(
+                  onPressed: isSubmitting ? null : _handleSubmit,
+                  child: isSubmitting
+                      ? SizedBox(
+                          width: 16.spMin,
+                          height: 16.spMin,
+                          child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text(isEdit ? 'Save Changes' : 'Create URL', style: tsS14W600.copyWith(color: Colors.white)),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );

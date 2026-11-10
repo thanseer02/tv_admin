@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'configs/app_configs.dart';
@@ -28,18 +29,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
 
-    return MaterialApp(
-      navigatorKey: AppConfig.navKey,
-      title: 'LinkDesk - URL Admin Portal',
-      debugShowCheckedModeBanner: false,
-      themeMode: themeProvider.themeMode,
-      theme: appLightTheme,
-      darkTheme: appDarkTheme,
-      initialRoute: AuthService().isAuthenticated
-          ? DashboardScreen.routeName
-          : LoginScreen.routeName,
-      onGenerateRoute: onAppGenerateRoute(),
-      routes: appRoutes(),
+    return ScreenUtilInit(
+      designSize: const Size(1440, 900),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => MaterialApp(
+        navigatorKey: AppConfig.navKey,
+        title: 'LinkDesk - URL Admin Portal',
+        debugShowCheckedModeBanner: false,
+        themeMode: themeProvider.themeMode,
+        theme: appLightTheme,
+        darkTheme: appDarkTheme,
+        initialRoute: AuthService().isAuthenticated
+            ? DashboardScreen.routeName
+            : LoginScreen.routeName,
+        onGenerateRoute: onAppGenerateRoute(),
+        routes: appRoutes(),
+      ),
     );
   }
 }
